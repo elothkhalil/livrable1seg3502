@@ -22,7 +22,7 @@ Pour compiler le squelette si Gradle et JDK 17 sont installés : `cd backend` pu
 Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémentation métier n'est incluse. Les contrats ne sont pas des tests fonctionnels exécutables à ce stade. Le build Gradle sert seulement à compiler les signatures Kotlin.
 
 ## Dépôt
-Copier le contenu de `backend` dans le dépôt de l'équipe (ou le conserver comme module), puis le pousser selon la procédure du cours. Aucun dépôt GitHub n'a été créé ou modifié à distance. Aucun secret ni fichier personnel du workspace n'est inclus.
+Le code est publié sur la branche `main` du dépôt de l'équipe : https://github.com/elothkhalil/livrable1seg3502. Le dossier `backend` contient la structure et les contrats à évaluer; le dossier `rapport` contient le document. Aucun secret ni fichier personnel du workspace n'est inclus.
 
 ## Mise à jour du rapport
 Modifier `tools/generate.py`, puis exécuter `python3 tools/generate.py` avec ReportLab. Une modification du Markdown seul ne modifie pas automatiquement le PDF. Vérifier ensuite le PDF rendu. Les PDF sources restent dans Downloads et ne sont pas redistribués dans l'archive.
