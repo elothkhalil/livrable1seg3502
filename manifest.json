@@ -1,0 +1,90 @@
+{
+  "subdomains": [
+    "planning",
+    "registration",
+    "members",
+    "trails",
+    "identity",
+    "notifications",
+    "reporting"
+  ],
+  "commands": [
+    {
+      "interface": "BrowseHikes",
+      "method": "browseHikes",
+      "dto": "BrowseHikesQuery",
+      "usecase": "UC01",
+      "contract": "browse-hikes"
+    },
+    {
+      "interface": "RegisterHiker",
+      "method": "registerHiker",
+      "dto": "RegisterHikerQuery",
+      "usecase": "UC02",
+      "contract": "register-hiker"
+    },
+    {
+      "interface": "SignUpForHike",
+      "method": "signUpForHike",
+      "dto": "SignUpForHikeQuery",
+      "usecase": "UC05",
+      "contract": "sign-up-for-hike"
+    },
+    {
+      "interface": "CancelSignUp",
+      "method": "cancelSignUp",
+      "dto": "CancelSignUpQuery",
+      "usecase": "UC06",
+      "contract": "cancel-sign-up"
+    },
+    {
+      "interface": "UpdateHiker",
+      "method": "updateProfile",
+      "dto": "UpdateProfileQuery",
+      "usecase": "UC07",
+      "contract": "update-profile"
+    },
+    {
+      "interface": "UpdateHiker",
+      "method": "changeMembership",
+      "dto": "ChangeMembershipQuery",
+      "usecase": "UC07",
+      "contract": "change-membership"
+    },
+    {
+      "interface": "UpdateHiker",
+      "method": "recordCertification",
+      "dto": "RecordCertificationQuery",
+      "usecase": "UC07",
+      "contract": "record-certification"
+    },
+    {
+      "interface": "CloseHike",
+      "method": "closeHike",
+      "dto": "CloseHikeQuery",
+      "usecase": "UC08",
+      "contract": "close-hike"
+    },
+    {
+      "interface": "SendHikeReminder",
+      "method": "sendHikeReminder",
+      "dto": "SendHikeReminderQuery",
+      "usecase": "UC09",
+      "contract": "send-hike-reminder"
+    },
+    {
+      "interface": "CreateHike",
+      "method": "createHike",
+      "dto": "CreateHikeQuery",
+      "usecase": "UC10",
+      "contract": "create-hike"
+    },
+    {
+      "interface": "CancelHike",
+      "method": "cancelHike",
+      "dto": "CancelHikeQuery",
+      "usecase": "UC11",
+      "contract": "cancel-hike"
+    }
+  ]
+}
