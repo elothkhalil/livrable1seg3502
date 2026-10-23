@@ -1,1 +1,1 @@
-rootProject.name = "car-hms-contracts"
+rootProject.name = "car-hms"

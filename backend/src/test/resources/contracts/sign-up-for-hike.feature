@@ -49,3 +49,9 @@ Fonctionnalité: Contrat initial de signUpForHike
     Quand il se réinscrit puis rejoue la même clé de requête
     Alors une seule inscription en attente existe avec un nouvel ordre FIFO en queue
     Et une seule notification logique reste en attente de remise
+
+  Scénario: Échéance passée avant le passage de l'ordonnanceur
+    Étant donné une randonnée ouverte dont l'échéance est passée mais pas encore fermée par l'ordonnanceur
+    Et un membre actif admissible sans inscription à cette randonnée
+    Quand le membre confirme son inscription
+    Alors la demande est refusée même si le statut persistant est encore ouverte

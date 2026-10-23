@@ -2,53 +2,81 @@
 <!DOCTYPE svg
   PUBLIC '-//W3C//DTD SVG 1.0//EN'
   'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
-<svg width="495" height="278" preserveAspectRatio="xMinYMin meet" viewBox="0 0 495 278" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="495" height="328" preserveAspectRatio="xMinYMin meet" viewBox="0 0 495 328" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<title>...</title>
 	<desc>...</desc>
 	<clipPath id="clip">
-		<rect x="0" y="0" width="495" height="278"/>
+		<rect x="0" y="0" width="495" height="328"/>
 	</clipPath>
-	<g id="group" transform="scale(1,-1) translate(0,-278)" style="clip-path: url(#clip)">
+	<g id="group" transform="scale(1,-1) translate(0,-328)" style="clip-path: url(#clip)">
 		<g transform="">
-			<rect x="158" y="75" width="179" height="145" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(83%,91%,90%); fill-rule: evenodd;"/>
-			<text x="226.9951171875" y="171.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,343) scale(1,-1)">CAR-HMS</text>
-			<text x="207.252685546875" y="159.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,319) scale(1,-1)">Consultation et profils</text>
-			<text x="198.0087890625" y="147.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,295) scale(1,-1)">Planification et inscriptions</text>
-			<text x="203.258056640625" y="135.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,271) scale(1,-1)">Rapports et notifications</text>
-			<text x="199.2744140625" y="123.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,247) scale(1,-1)">Base, cache, ordonnanceur</text>
-			<rect x="0" y="206" width="130" height="55" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
-			<text x="32.25854492187499" y="239.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,479) scale(1,-1)">Visiteur / membre</text>
-			<text x="27.011474609374993" y="227.5" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,455) scale(1,-1)">Organisateur / admin</text>
-			<rect x="0" y="77" width="130" height="58" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
-			<text x="32.75292968749999" y="112.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,224) scale(1,-1)">Processus du club</text>
-			<text x="26.503906249999993" y="100.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,200) scale(1,-1)">adhésion / invitations</text>
-			<rect x="365" y="214" width="130" height="48" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
-			<text x="403.876708984375" y="244.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,488) scale(1,-1)">Données CCN</text>
-			<text x="389.256103515625" y="232.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,464) scale(1,-1)">sentiers et permissions</text>
-			<rect x="365" y="129" width="130" height="48" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
-			<text x="404.386474609375" y="159.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,318) scale(1,-1)">Service météo</text>
-			<text x="393.760498046875" y="147.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,294) scale(1,-1)">prévisions au départ</text>
-			<rect x="365" y="33" width="130" height="48" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
-			<text x="401.389404296875" y="63.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,126) scale(1,-1)">Service courriel</text>
-			<text x="392.7607421875" y="51.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,102) scale(1,-1)">remise des messages</text>
-			<path d="M 130,228 L 158,194 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="158 194, 157.061 198.911, 153.3602 195.8633" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 158,179 L 130,213 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="130 213, 130.939 208.089, 134.6398 211.1367" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 130,108 L 158,120 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="158 120, 153.0226 120.4748, 154.9111 116.0682" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 337,192 L 365,234 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="365 234, 360.5715 231.6787, 364.5606 229.0193" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 365,223 L 337,180 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="337 180, 341.4032 182.369, 337.3856 184.9851" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 337,150 L 365,156 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="365 156, 360.2072 157.4245, 361.2118 152.7367" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 365,143 L 337,138 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="337 138, 341.741 136.4116, 340.8982 141.1312" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 337,103 L 365,63 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="365 63, 364.4475 67.96938, 360.5199 65.22006" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
-			<path d="M 365,49 L 337,88 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
-			<polygon points="337 88, 337.6118 83.03757, 341.5063 85.83362" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<rect x="200" y="8" width="95" height="312" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(83%,91%,90%); fill-rule: evenodd;"/>
+			<text x="226.9951171875" y="194.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,388) scale(1,-1)">CAR-HMS</text>
+			<text x="216.635009765625" y="182.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,364) scale(1,-1)">Application Web</text>
+			<text x="207.375732421875" y="170.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,340) scale(1,-1)">Angular / Spring Boot</text>
+			<text x="247.5" y="158.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,316) scale(1,-1)"></text>
+			<text x="217.509521484375" y="146.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,292) scale(1,-1)">Base de données</text>
+			<text x="208.142578125" y="134.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,268) scale(1,-1)">Ordonnanceur interne</text>
+			<rect x="0" y="266" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="31.50244140625" y="286.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,572) scale(1,-1)">Visiteur</text>
+			<path d="M 92,291 L 200,291 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="200 291, 195.6121 293.3971, 195.6121 288.6029" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 200,281 L 92,281 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="92 281, 96.38791 278.6029, 96.38791 283.3971" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="109.2708740234375" y="295" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,590) scale(1,-1)">recherche, code d’invitation</text>
+			<text x="119.012939453125" y="271" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,542) scale(1,-1)">randonnées ouvertes</text>
+			<rect x="0" y="186" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="24.005371093749996" y="206.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,412) scale(1,-1)">Randonneur</text>
+			<path d="M 92,211 L 200,211 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="200 211, 195.6121 213.3971, 195.6121 208.6029" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 200,201 L 92,201 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="92 201, 96.38791 198.6029, 96.38791 203.3971" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="121.802734375" y="215" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,430) scale(1,-1)">inscriptions, profil</text>
+			<text x="119.095458984375" y="191" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,382) scale(1,-1)">statut, confirmations</text>
+			<rect x="0" y="106" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="22.759521484374996" y="132.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,264) scale(1,-1)">Organisateur</text>
+			<text x="21.887207031249996" y="120.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,240) scale(1,-1)">de randonnée</text>
+			<path d="M 92,131 L 200,131 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="200 131, 195.6121 133.3971, 195.6121 128.6029" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 200,121 L 92,121 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="92 121, 96.38791 118.6029, 96.38791 123.3971" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="119.46044921875" y="135" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,270) scale(1,-1)">création, annulation</text>
+			<text x="116.66748046875" y="111" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,222) scale(1,-1)">randonnée enregistrée</text>
+			<rect x="0" y="26" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="18.756103515624996" y="46.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,92) scale(1,-1)">Administrateur</text>
+			<path d="M 92,51 L 200,51 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="200 51, 195.6121 53.39713, 195.6121 48.60287" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 200,41 L 92,41 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="92 41, 96.38791 38.60287, 96.38791 43.39713" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="114.2252197265625" y="55" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,110) scale(1,-1)">adhésions, certifications</text>
+			<text x="118.1004638671875" y="31" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,62) scale(1,-1)">rapports d’utilisation</text>
+			<rect x="403" y="236" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="422.876708984375" y="262.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,524) scale(1,-1)">Données CCN</text>
+			<text x="432.2568359375" y="250.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,500) scale(1,-1)">(sentiers)</text>
+			<path d="M 295,261 L 403,261 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="403 261, 398.6121 263.3971, 398.6121 258.6029" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 403,251 L 295,251 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="295 251, 299.3879 248.6029, 299.3879 253.3971" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="324.4520263671875" y="265" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,530) scale(1,-1)">requête de sentiers</text>
+			<text x="310.5379638671875" y="241" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,482) scale(1,-1)">sentiers, permissions, saisons</text>
+			<rect x="403" y="146" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="435.506591796875" y="172.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,344) scale(1,-1)">Service</text>
+			<text x="420.758544921875" y="160.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,320) scale(1,-1)">météorologique</text>
+			<path d="M 295,171 L 403,171 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="403 171, 398.6121 173.3971, 398.6121 168.6029" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 403,161 L 295,161 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="295 161, 299.3879 158.6029, 299.3879 163.3971" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="321.9208984375" y="175" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,350) scale(1,-1)">point de départ, date</text>
+			<text x="320.210205078125" y="151" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,302) scale(1,-1)">prévision (facultative)</text>
+			<rect x="403" y="56" width="92" height="40" rx="6" ry="6" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1; fill: rgb(92%,96%,95%); fill-rule: evenodd;"/>
+			<text x="435.506591796875" y="82.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,164) scale(1,-1)">Service</text>
+			<text x="429.635498046875" y="70.0" style="font-family: TimesNewRoman; font-size: 9px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,140) scale(1,-1)">de courriel</text>
+			<path d="M 295,81 L 403,81 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="403 81, 398.6121 83.39713, 398.6121 78.60287" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<path d="M 403,71 L 295,71 Z" style="stroke: rgb(27%,46%,47%); stroke-linecap: butt; stroke-width: 1;"/>
+			<polygon points="295 71, 299.3879 68.60287, 299.3879 73.39713" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(27%,46%,47%); fill-rule: evenodd;"/>
+			<text x="312.7088623046875" y="85" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,170) scale(1,-1)">confirmations, rappels, avis</text>
+			<text x="314.341796875" y="61" style="font-family: TimesNewRoman-Italic; font-size: 6.5px;fill: rgb(8%,24%,26%); stroke:none;" transform="translate(0,122) scale(1,-1)">accusés, erreurs de remise</text>
 		</g>
 	</g>
 </svg>

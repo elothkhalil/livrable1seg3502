@@ -1,19 +1,21 @@
 # CAR-HMS - Livrable 1 : Analyse initiale du domaine
 
-Système de gestion des événements de randonnée du Club Cairn
+Équipe : Équipe CAR-HMS
 
-SEG 3102 · Automne 2026
+Produit : Système de gestion des événements de randonnée du Club Cairn (CAR-HMS)
 
-Date de préparation : 22 octobre 2026
+Cours : SEG 3102 · Automne 2026
 
-Professeur : Kalenji Kalala
+Livrable : no 1 — domaine initial
+
+Date : 22 octobre 2026
+
+Professeur : Kalonji Kalala
 
 | Membre | Numéro étudiant |
 | --- | --- |
 | Mohamed Khalil EL OTHMANI | 300389979 |
 | Mohamed Khalil Mehdaoui | 300371110 |
-
-Analyse initiale du domaine et contrats applicatifs. Les décisions d’analyse sont identifiées comme hypothèses, sans être attribuées au client.
 
 
 # 2. Sommaire exécutif et équipe
@@ -38,12 +40,12 @@ Travail commun aux deux membres : analyse des cas d’utilisation, vérification
 
 Inclus : consultation, compte sur invitation, profil et habilitation, planification, inscriptions/attente, notifications et statistiques. Exclus : recrutement, émission des invitations, processus complet d’adhésion, ressources humaines, activités physiques et suivi des présences. Les données CCN demeurent la référence externe.
 
-Le dossier backend contient uniquement le squelette du domaine, les contrats d’application et les fonctionnalités Cucumber demandés. Le produit final utilisera Angular/TypeScript et Kotlin/Spring Boot; aucune interface Web ni implémentation Spring Boot n’est requise pour ce livrable initial [R1, §2.3; R2, §2].
+Le dossier backend est un projet Kotlin/Spring Boot (classe CarHmsApplication) qui contient le squelette du domaine, les contrats d’application et les fonctionnalités Cucumber demandés. Le produit final utilisera Angular/TypeScript et Kotlin/Spring Boot; aucune interface Web ni logique métier n’est requise pour ce livrable initial [R1, §2.3; R2, §2].
 
 
 ## 2.4 Guide de lecture
 
-Sections 3 à 6 : décisions et modèle de haut niveau. Section 7 : douze fiches de cas d’utilisation. Section 8 : revue bonus distincte des hypothèses. Section 9 : traçabilité et conformité. Section 10 : références et points à confirmer.
+Sections 3 à 6 : décisions et modèle de haut niveau. Section 7 : douze fiches de cas d’utilisation. Section 8 : revue bonus distincte des hypothèses. Section 9 : traçabilité et conformité. Section 10 : références.
 
 
 # 3. Hypothèses (1/2)
@@ -137,11 +139,13 @@ Diagramme : voir contexte.svg (version vectorielle modifiable).
 
 | Élément externe | Entrées / sorties à la frontière |
 | --- | --- |
-| Utilisateurs humains | Demandes et confirmations → CAR-HMS; listes, résultats, profils autorisés et rapports ← CAR-HMS. |
-| Processus administratif du club | Codes préalables et décisions d’adhésion/certification saisis par les acteurs autorisés. Aucune API externe de membres n’est supposée. |
-| CCN | Requête de données → CCN; références de sentiers, géométrie, permissions et caractéristiques ← CCN. Pas d’écriture dans la CCN. |
-| Météo | Coordonnées et date → service; prévision facultative ← service. |
-| Messagerie | Courriels et destinataires → service; accusés ou erreurs de remise ← service. |
+| Visiteur | Recherche et code d’invitation → CAR-HMS; randonnées ouvertes ← CAR-HMS. Le code est remis par les administrateurs hors du système. |
+| Randonneur | Inscriptions, annulations et profil → CAR-HMS; statut des inscriptions et confirmations ← CAR-HMS. |
+| Organisateur de randonnée | Création et annulation de ses randonnées → CAR-HMS; randonnée enregistrée et état ← CAR-HMS. |
+| Administrateur | Adhésions, certifications et annulations → CAR-HMS; rapports d’utilisation des sentiers ← CAR-HMS. |
+| Données CCN | Requête de sentiers → CCN; références, permissions, difficulté, saison et point de départ ← CCN. Pas d’écriture dans la CCN. |
+| Service météorologique | Point de départ et date → service; prévision facultative ← service. |
+| Service de courriel | Confirmations, rappels et avis → service; accusés ou erreurs de remise ← service. |
 
 Sécurité : contrôle d’accès à chaque fonction protégée; stockage authentifié et chiffré; minimisation des données publiques. Résilience : données CCN mémorisées, météo facultative et notifications en attente [R1, §1.4, §2.2; H06, H11, H13].
 
@@ -523,7 +527,7 @@ L’utilisateur choisit le type de mise à jour.
 1. Charger les informations autorisées actuelles; choisir modifier le profil, modifier l’adhésion ou enregistrer une certification.
 2. Pour le profil personnel, soumettre nom, téléphone, adresse, naissance, urgence et niveau; ne pas permettre de modifier rôles, courriel identifiant ou adhésion par ce formulaire.
 3. Pour l’adhésion, un administrateur choisit ACTIVE, EXPIRÉE ou SUSPENDUE. Le processus d’adhésion externe demeure hors portée.
-4. Pour la certification, un administrateur saisit numéro, délivrance, expiration et niveau d’organisateur; valider numéro non vide, dates ordonnées et niveau 1 à 4.
+4. Pour la certification, un administrateur saisit numéro, délivrance, expiration et niveau d’organisateur; valider numéro non vide, dates ordonnées et niveau d’organisateur exprimé comme une difficulté de sentier (facile à très difficile).
 5. Valider tous les champs, enregistrer la seule modification autorisée et auditer l’auteur; une certification valide confère l’habilitation d’organisateur.
 6. Afficher les données mises à jour; une modification de naissance conserve l’historique de décharge et nécessite une preuve de tuteur si le profil devient mineur.
 
@@ -814,7 +818,7 @@ Résolution : H04 : ordonnanceur interne, principal SYSTEM et cause conservée; 
 
 Effet sur le modèle/contrat : planning conserve un auteur humain ou système pour chaque transition; CloseHike et SendHikeReminder exigent un appel interne autorisé.
 
-Vérification : close-hike.feature : égalité à l’échéance, retard et rejeu sans double audit; send-hike-reminder.feature : déclenchement aux 24 heures.
+Vérification : close-hike.feature : égalité à l’échéance et rejeu sans double audit; sign-up-for-hike.feature et cancel-sign-up.feature : refus après l’échéance même avant le passage de l’ordonnanceur; send-hike-reminder.feature : déclenchement aux 24 heures.
 
 
 ## B05 · Participants statistiques et absence de présence
@@ -855,36 +859,19 @@ Les onze DTO racines sont dans application.dtos.queries.Queries.kt; ProfileQuery
 
 | Exigence de remise [R2] | Emplacement / preuve |
 | --- | --- |
-| Couverture et contributions | Sections 1 et 2; professeur, identités et tâches des deux membres renseignés. |
+| Couverture et contributions | Page couverture (équipe, produit, cours, livrable, date, professeur, membres) et section 2. |
 | Hypothèses, contexte, sous-domaines | Sections 3 à 6; 7 sous-paquetages domain avec README. |
 | 12 analyses de cas d’utilisation | Section 7 : préconditions, étapes, variantes et postconditions. |
 | Commandes / DTO / contrats | 9 interfaces, 11 fonctions, 11 DTO racines, 11 fonctionnalités. |
 | Exceptions au code | UC03, UC04 et UC12 décrits dans le rapport; aucune interface ni fonctionnalité correspondante. |
 | Bonus jusqu’à 5 éléments | Section 8 : 5 observations avec citation, résolution et effet. |
-| Dépôt GitHub | Dossier backend prêt à intégrer; publication et URL du dépôt à fournir par l’équipe. |
+| Dépôt GitHub | https://github.com/elothkhalil/livrable1seg3502 : dossier backend (structure du domaine, commandes, DTO, contrats). |
 
 
-# 10. Références et préparation de la remise
-
-
-## 10.1 Documents de référence
+# 10. Références
 
 [R1] Kalonji Kalala. Système de gestion des événements de randonnée du Cairn (CAR-HMS), document des exigences initiales, CAR-Req-01. SEG 3102, Université d’Ottawa, automne 2026. Fichier fourni : Exigences Initiales-CAR-HMS_exigences_initiales_FR1.pdf, 8 pages. Références pertinentes : contexte/portée p. 1-2; glossaire p. 2-3; exigences p. 3-4; diagramme p. 5-6; cas d’utilisation p. 7-8.
 
 [R2] Boqi Chen. SEG 3102, Projet, Livrable 1 : domaine initial. Université d’Ottawa, automne 2026. Fichier fourni : SEG3102_Livrable1_FR1.pdf, 3 pages. Plan du rapport p. 1; structure de code et exceptions p. 2; critères du bonus p. 2-3.
 
 Les liens vers la CCN présents dans R1 désignent de futures sources opérationnelles; aucune consultation du catalogue en direct ni validation d’un fournisseur météo n’est prétendue ici. Les règles de ce livrable sont tirées des deux PDF et des hypothèses explicites.
-
-
-## 10.2 Points à confirmer avant dépôt
-
-- Vérifier les informations de couverture et le tableau des contributions; aucun nom d’équipe distinct n’est utilisé, conformément au choix des membres.
-- Valider les hypothèses avec le client/enseignant, en priorité l’admissibilité aux niveaux inférieurs, le calendrier saisonnier CCN, la revalidation des attentes et le sens de « participants ».
-- Intégrer backend dans le dépôt GitHub de l’équipe et vérifier l’arborescence et les droits d’accès de l’évaluateur. Les consignes ne rendent pas explicitement obligatoire une branche appelée contracts : ce nom apparaît dans l’exemple.
-- La compilation directe des fichiers Kotlin a réussi (compilateur 2.0.21, JDK 21, cible JVM 17). Le parseur Gherkin officiel accepte 11 fonctionnalités et 100 scénarios développés. L’exécution métier nécessitera les définitions de pas et une implémentation ultérieure.
-- Relire le rapport, vérifier les champs administratifs, puis remettre selon la procédure et la date annoncées dans le cours. Les PDF fournis n’indiquent pas la date limite.
-
-
-## 10.3 Limite de validation
-
-La grille détaillée de correction n’est pas fournie. Ce dossier vise l’ensemble des exigences explicites et le bonus, sans garantir une note. Les contrôles automatiques locaux portent sur la structure, la correspondance entre commandes/DTO/contrats, la compilation des signatures Kotlin, la syntaxe Gherkin et le rendu du PDF; ils ne prouvent pas l’implémentation du produit.

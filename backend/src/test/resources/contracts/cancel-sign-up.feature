@@ -42,3 +42,9 @@ Fonctionnalité: Contrat initial de cancelSignUp
     Quand ces deux confirmés annulent simultanément avant échéance
     Alors les deux attentes sont promues chacune une seule fois selon leur séquence
     Et aucun envoi de promotion n'est dupliqué
+
+  Scénario: Échéance passée avant le passage de l'ordonnanceur
+    Étant donné une randonnée ouverte dont l'échéance est passée mais pas encore fermée par l'ordonnanceur
+    Et une inscription confirmée du membre à cette randonnée
+    Quand le membre demande l'annulation de son inscription
+    Alors la demande est refusée et l'inscription reste confirmée

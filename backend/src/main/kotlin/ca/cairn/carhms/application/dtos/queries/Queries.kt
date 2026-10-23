@@ -61,7 +61,8 @@ data class RecordCertificationQuery(
     val certificateNumber: String,
     val issuedOn: LocalDate,
     val expiresOn: LocalDate,
-    val organizerLevel: SkillLevel
+    /** Highest trail difficulty the organizer may lead (CAR-Req-01 §1.5). */
+    val organizerLevel: TrailDifficulty
 )
 data class CloseHikeQuery(val requestId: UUID, val hikeId: UUID)
 data class SendHikeReminderQuery(val requestId: UUID, val hikeId: UUID)

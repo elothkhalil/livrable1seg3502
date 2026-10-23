@@ -97,7 +97,7 @@ ucs=[
 'Charger les informations autorisées actuelles; choisir modifier le profil, modifier l’adhésion ou enregistrer une certification.',
 'Pour le profil personnel, soumettre nom, téléphone, adresse, naissance, urgence et niveau; ne pas permettre de modifier rôles, courriel identifiant ou adhésion par ce formulaire.',
 'Pour l’adhésion, un administrateur choisit ACTIVE, EXPIRÉE ou SUSPENDUE. Le processus d’adhésion externe demeure hors portée.',
-'Pour la certification, un administrateur saisit numéro, délivrance, expiration et niveau d’organisateur; valider numéro non vide, dates ordonnées et niveau 1 à 4.',
+'Pour la certification, un administrateur saisit numéro, délivrance, expiration et niveau d’organisateur; valider numéro non vide, dates ordonnées et niveau d’organisateur exprimé comme une difficulté de sentier (facile à très difficile).',
 'Valider tous les champs, enregistrer la seule modification autorisée et auditer l’auteur; une certification valide confère l’habilitation d’organisateur.',
 'Afficher les données mises à jour; une modification de naissance conserve l’historique de décharge et nécessite une preuve de tuteur si le profil devient mineur.'],[
 'Accès à un autre profil ou tentative d’auto-approbation : refus.',
@@ -215,7 +215,8 @@ data class RecordCertificationQuery(
     val certificateNumber: String,
     val issuedOn: LocalDate,
     val expiresOn: LocalDate,
-    val organizerLevel: SkillLevel
+    /** Highest trail difficulty the organizer may lead (CAR-Req-01 §1.5). */
+    val organizerLevel: TrailDifficulty
 )
 data class CloseHikeQuery(val requestId: UUID, val hikeId: UUID)
 data class SendHikeReminderQuery(val requestId: UUID, val hikeId: UUID)
@@ -284,15 +285,45 @@ for interface in dict.fromkeys(c[0] for c in commands):
 interface {interface} {{
 {methods}
 }}''')
-put(R/'backend/settings.gradle.kts','rootProject.name = "car-hms-contracts"')
+put(R/'backend/settings.gradle.kts','rootProject.name = "car-hms"')
 put(R/'backend/build.gradle.kts','''plugins {
     kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
+    id("org.springframework.boot") version "3.3.5"
+    id("io.spring.dependency-management") version "1.1.6"
 }
+
+group = "ca.cairn"
+version = "0.1.0"
+
 repositories { mavenCentral() }
 kotlin { jvmToolchain(17) }
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.cucumber:cucumber-java:7.20.1")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.20.1")
+    testImplementation("io.cucumber:cucumber-spring:7.20.1")
+    testImplementation("org.junit.platform:junit-platform-suite")
+}
+
+tasks.withType<Test> { useJUnitPlatform() }
 // Initial feature contracts are specifications, not yet bound to step definitions.
-// No Cucumber execution task is claimed by this deliverable.
 ''')
+put(SRC/'CarHmsApplication.kt','''package ca.cairn.carhms
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class CarHmsApplication
+
+fun main(args: Array<String>) {
+    runApplication<CarHmsApplication>(*args)
+}''')
 # Gherkin is written in French; each application command has its own feature file.
 features={
 'browse-hikes':'''  Scénario: Consultation publique filtrée et triée
@@ -407,6 +438,12 @@ features={
     Quand il se réinscrit puis rejoue la même clé de requête
     Alors une seule inscription en attente existe avec un nouvel ordre FIFO en queue
     Et une seule notification logique reste en attente de remise
+
+  Scénario: Échéance passée avant le passage de l'ordonnanceur
+    Étant donné une randonnée ouverte dont l'échéance est passée mais pas encore fermée par l'ordonnanceur
+    Et un membre actif admissible sans inscription à cette randonnée
+    Quand le membre confirme son inscription
+    Alors la demande est refusée même si le statut persistant est encore ouverte
 ''',
 'cancel-sign-up':'''  Scénario: Promotion du premier membre admissible
     Étant donné une randonnée complète avec un confirmé "A" et les attentes "B, C, D" dans cet ordre
@@ -446,6 +483,12 @@ features={
     Quand ces deux confirmés annulent simultanément avant échéance
     Alors les deux attentes sont promues chacune une seule fois selon leur séquence
     Et aucun envoi de promotion n'est dupliqué
+
+  Scénario: Échéance passée avant le passage de l'ordonnanceur
+    Étant donné une randonnée ouverte dont l'échéance est passée mais pas encore fermée par l'ordonnanceur
+    Et une inscription confirmée du membre à cette randonnée
+    Quand le membre demande l'annulation de son inscription
+    Alors la demande est refusée et l'inscription reste confirmée
 ''',
 'update-profile':'''  Scénario: Mise à jour par le propriétaire
     Étant donné un membre connecté et la version actuelle de son profil
@@ -495,7 +538,7 @@ features={
 ''',
 'record-certification':'''  Scénario: Habilitation par un administrateur
     Étant donné un administrateur connecté et un randonneur existant de version actuelle
-    Quand il enregistre le certificat "C-100" délivré le "2026-01-01" expirant le "2026-12-31" au niveau "avancé"
+    Quand il enregistre le certificat "C-100" délivré le "2026-01-01" expirant le "2026-12-31" au niveau d'organisateur "difficile"
     Alors la certification et le niveau sont conservés et l'auteur est audité
     Et le randonneur est habilité comme organisateur dans les limites de cette certification
 
@@ -509,7 +552,7 @@ features={
       | un appel par un simple randonneur        |
       | un numéro vide                          |
       | une expiration antérieure à la délivrance|
-      | un niveau hors de 1 à 4                  |
+      | un niveau d'organisateur absent          |
       | une version obsolète                    |
 ''',
 'close-hike':'''  Plan du scénario: Fermeture à l'échéance
@@ -523,11 +566,6 @@ features={
       | état     |
       | ouverte  |
       | complète |
-
-  Scénario: Retard d'ordonnanceur
-    Étant donné une randonnée ouverte dont l'échéance est passée et non encore traitée
-    Quand un membre tente une inscription ou une annulation personnelle
-    Alors l'opération est refusée même si le statut persistant n'a pas encore changé
 
   Scénario: Fermeture anticipée
     Étant donné une randonnée dont l'échéance est future
@@ -671,7 +709,7 @@ put(RES/'README.md','''# Contrats initiaux
 
 Une fonctionnalité par commande (11), couvrant 9 interfaces et 9 cas d’utilisation. UC03, UC04 et UC12 sont exclus du code par les consignes mais analysés dans le rapport. UC07 donne lieu à trois commandes avec permissions différentes.
 
-Les scénarios Gherkin sont des **spécifications initiales**. Aucune définition de pas, infrastructure Spring Boot ou exécution fonctionnelle n’est fournie à cette étape. Les tables « défaut/condition » représentent des fixtures isolées et autrement valides, sauf indication contraire.
+Les scénarios Gherkin sont des **spécifications initiales**. Aucune définition de pas ni exécution fonctionnelle n’est fournie à cette étape; le projet contient seulement la classe d’application Spring Boot et les dépendances Cucumber prévues. Les tables « défaut/condition » représentent des fixtures isolées et autrement valides, sauf indication contraire.
 
 Les horloges sont injectées côté serveur. Les instants utilisent UTC; les dates de naissance, saisons et certificats sont évaluées dans America/Toronto. Les identifiants d’acteur et l’heure d’appel ne proviennent jamais du DTO utilisateur. Les clés requestId sont liées à l’acteur et à la commande; rejouer avec une charge différente est rejeté.
 
@@ -718,11 +756,10 @@ def table(headers,rows,widths):
 # cover
 story.append(Spacer(1,54));story.append(P('CAR-HMS','TitleCAR'));story.append(P('Livrable 1\nAnalyse initiale du domaine','TitleCAR'))
 md.append('# CAR-HMS - Livrable 1 : Analyse initiale du domaine\n')
-for t in ['Système de gestion des événements de randonnée du Club Cairn','SEG 3102 · Automne 2026','Date de préparation : 22 octobre 2026','Professeur : Kalenji Kalala']:
+for t in ['Équipe : Équipe CAR-HMS','Produit : Système de gestion des événements de randonnée du Club Cairn (CAR-HMS)','Cours : SEG 3102 · Automne 2026','Livrable : no 1 — domaine initial','Date : 22 octobre 2026','Professeur : Kalonji Kalala']:
  story.append(P(t,'CoverSmall'));md.append(t+'\n')
 story.append(Spacer(1,24))
 table(['Membre','Numéro étudiant'],[['Mohamed Khalil EL OTHMANI','300389979'],['Mohamed Khalil Mehdaoui','300371110']],[340,155])
-story.append(Spacer(1,25));para('Analyse initiale du domaine et contrats applicatifs. Les décisions d’analyse sont identifiées comme hypothèses, sans être attribuées au client.')
 title('2. Sommaire exécutif et équipe')
 h('2.1 Sommaire exécutif')
 para('Ce document s’adresse au client Cairn, à l’équipe de développement et à l’évaluateur du cours; il fixe la portée, les hypothèses et le modèle initial du domaine CAR-HMS. Il décrit les interactions externes, justifie sept sous-domaines, détaille les douze cas d’utilisation et relie neuf interfaces Kotlin et onze contrats Cucumber aux règles métier, puis présente cinq observations de revue des exigences.')
@@ -733,9 +770,9 @@ table(['Membre','Travail réellement effectué pour ce livrable'],[
 para('Travail commun aux deux membres : analyse des cas d’utilisation, vérification de la cohérence entre rapport et code et relecture finale. Aucun pourcentage ni nombre d’heures n’est indiqué; ces renseignements sont facultatifs dans les consignes.')
 h('2.3 Portée et pièces livrées')
 para('Inclus : consultation, compte sur invitation, profil et habilitation, planification, inscriptions/attente, notifications et statistiques. Exclus : recrutement, émission des invitations, processus complet d’adhésion, ressources humaines, activités physiques et suivi des présences. Les données CCN demeurent la référence externe.')
-para('Le dossier backend contient uniquement le squelette du domaine, les contrats d’application et les fonctionnalités Cucumber demandés. Le produit final utilisera Angular/TypeScript et Kotlin/Spring Boot; aucune interface Web ni implémentation Spring Boot n’est requise pour ce livrable initial [R1, §2.3; R2, §2].')
+para('Le dossier backend est un projet Kotlin/Spring Boot (classe CarHmsApplication) qui contient le squelette du domaine, les contrats d’application et les fonctionnalités Cucumber demandés. Le produit final utilisera Angular/TypeScript et Kotlin/Spring Boot; aucune interface Web ni logique métier n’est requise pour ce livrable initial [R1, §2.3; R2, §2].')
 h('2.4 Guide de lecture')
-para('Sections 3 à 6 : décisions et modèle de haut niveau. Section 7 : douze fiches de cas d’utilisation. Section 8 : revue bonus distincte des hypothèses. Section 9 : traçabilité et conformité. Section 10 : références et points à confirmer.')
+para('Sections 3 à 6 : décisions et modèle de haut niveau. Section 7 : douze fiches de cas d’utilisation. Section 8 : revue bonus distincte des hypothèses. Section 9 : traçabilité et conformité. Section 10 : références.')
 for first,last,label in [(0,8,'3. Hypothèses (1/2)'),(8,len(assumptions),'3. Hypothèses (2/2)')]:
  title(label)
  for code,name,body in assumptions[first:last]:
@@ -743,7 +780,7 @@ for first,last,label in [(0,8,'3. Hypothèses (1/2)'),(8,len(assumptions),'3. Hy
  if first==0:para('Statut de ces décisions : propositions de l’équipe à valider avec le client. Elles rendent les contrats déterministes sans ajouter silencieusement des exigences à CAR-Req-01.')
 title('4. Diagramme de contexte du système')
 para('La frontière représente l’application Web CAR-HMS et ses composants locaux. Les acteurs et services externes échangent les informations décrites ci-dessous. L’ordonnanceur, le cache et la base de données sont internes; ils ne constituent pas des systèmes clients indépendants.')
-d=Drawing(495,278)
+d=Drawing(495,328)
 def box(d,x,y,w,hh,text,fill='#edf5f4'):
  d.add(Rect(x,y,w,hh,rx=6,ry=6,fillColor=colors.HexColor(fill),strokeColor=colors.HexColor('#46767a')))
  for i,line in enumerate(text.split('\n')):d.add(String(x+w/2,y+hh/2+(len(text.split('\n'))-1)*6-i*12,line,fontName='TimesNewRoman',fontSize=9,textAnchor='middle',fillColor=colors.HexColor('#163e43')))
@@ -752,24 +789,33 @@ def arrow(d,x1,y1,x2,y2):
  d.add(Line(x1,y1,x2,y2,strokeColor=colors.HexColor('#46767a'),strokeWidth=1))
  a=math.atan2(y2-y1,x2-x1); sz=5
  d.add(Polygon([x2,y2,x2-sz*__import__('math').cos(a-.5),y2-sz*__import__('math').sin(a-.5),x2-sz*__import__('math').cos(a+.5),y2-sz*__import__('math').sin(a+.5)],fillColor=colors.HexColor('#46767a'),strokeColor=None))
-box(d,158,75,179,145,'CAR-HMS\nConsultation et profils\nPlanification et inscriptions\nRapports et notifications\nBase, cache, ordonnanceur','#d6e9e7')
-box(d,0,206,130,55,'Visiteur / membre\nOrganisateur / admin')
-box(d,0,77,130,58,'Processus du club\nadhésion / invitations')
-box(d,365,214,130,48,'Données CCN\nsentiers et permissions')
-box(d,365,129,130,48,'Service météo\nprévisions au départ')
-box(d,365,33,130,48,'Service courriel\nremise des messages')
-arrow(d,130,228,158,194);arrow(d,158,179,130,213)
-arrow(d,130,108,158,120)
-arrow(d,337,192,365,234);arrow(d,365,223,337,180)
-arrow(d,337,150,365,156);arrow(d,365,143,337,138)
-arrow(d,337,103,365,63);arrow(d,365,49,337,88)
+def flow(d,x1,x2,yc,top_label,bottom_label):
+ # Two labelled horizontal flows: top goes left to right, bottom right to left.
+ mid=(x1+x2)/2
+ arrow(d,x1,yc+5,x2,yc+5);arrow(d,x2,yc-5,x1,yc-5)
+ for y,text in [(yc+9,top_label),(yc-15,bottom_label)]:
+  d.add(String(mid,y,text,fontName='TimesNewRoman-Italic',fontSize=6.5,textAnchor='middle',fillColor=colors.HexColor('#163e43')))
+box(d,200,8,95,312,'CAR-HMS\nApplication Web\nAngular / Spring Boot\n\nBase de données\nOrdonnanceur interne','#d6e9e7')
+actors=[(286,'Visiteur','recherche, code d’invitation','randonnées ouvertes'),
+(206,'Randonneur','inscriptions, profil','statut, confirmations'),
+(126,'Organisateur\nde randonnée','création, annulation','randonnée enregistrée'),
+(46,'Administrateur','adhésions, certifications','rapports d’utilisation')]
+for yc,name,to_sys,from_sys in actors:
+ box(d,0,yc-20,92,40,name);flow(d,92,200,yc,to_sys,from_sys)
+services=[(256,'Données CCN\n(sentiers)','requête de sentiers','sentiers, permissions, saisons'),
+(166,'Service\nmétéorologique','point de départ, date','prévision (facultative)'),
+(76,'Service\nde courriel','confirmations, rappels, avis','accusés, erreurs de remise')]
+for yc,name,to_ext,from_ext in services:
+ box(d,403,yc-20,92,40,name);flow(d,295,403,yc,to_ext,from_ext)
 story.append(d);md.append('Diagramme : voir contexte.svg (version vectorielle modifiable).\n')
 table(['Élément externe','Entrées / sorties à la frontière'],[
-['Utilisateurs humains','Demandes et confirmations → CAR-HMS; listes, résultats, profils autorisés et rapports ← CAR-HMS.'],
-['Processus administratif du club','Codes préalables et décisions d’adhésion/certification saisis par les acteurs autorisés. Aucune API externe de membres n’est supposée.'],
-['CCN','Requête de données → CCN; références de sentiers, géométrie, permissions et caractéristiques ← CCN. Pas d’écriture dans la CCN.'],
-['Météo','Coordonnées et date → service; prévision facultative ← service.'],
-['Messagerie','Courriels et destinataires → service; accusés ou erreurs de remise ← service.']],[130,365])
+['Visiteur','Recherche et code d’invitation → CAR-HMS; randonnées ouvertes ← CAR-HMS. Le code est remis par les administrateurs hors du système.'],
+['Randonneur','Inscriptions, annulations et profil → CAR-HMS; statut des inscriptions et confirmations ← CAR-HMS.'],
+['Organisateur de randonnée','Création et annulation de ses randonnées → CAR-HMS; randonnée enregistrée et état ← CAR-HMS.'],
+['Administrateur','Adhésions, certifications et annulations → CAR-HMS; rapports d’utilisation des sentiers ← CAR-HMS.'],
+['Données CCN','Requête de sentiers → CCN; références, permissions, difficulté, saison et point de départ ← CCN. Pas d’écriture dans la CCN.'],
+['Service météorologique','Point de départ et date → service; prévision facultative ← service.'],
+['Service de courriel','Confirmations, rappels et avis → service; accusés ou erreurs de remise ← service.']],[130,365])
 para('Sécurité : contrôle d’accès à chaque fonction protégée; stockage authentifié et chiffré; minimisation des données publiques. Résilience : données CCN mémorisées, météo facultative et notifications en attente [R1, §1.4, §2.2; H06, H11, H13].')
 # export drawing also SVG
 from reportlab.graphics import renderSVG
@@ -846,7 +892,7 @@ bonus=[
 'Le diagramme rattache Fermer une randonnée et Envoyer un rappel à un randonneur [R1, fig. 1, p. 5], tandis que les résumés les déclenchent par échéance et par début moins un jour [R1, p. 7-8]. Une action planifiée n’a pas forcément d’utilisateur humain.',
 'H04 : ordonnanceur interne, principal SYSTEM et cause conservée; les règles temporelles s’appliquent même si son passage tarde. TERMINÉE conserve la même convention d’audit.',
 'planning conserve un auteur humain ou système pour chaque transition; CloseHike et SendHikeReminder exigent un appel interne autorisé.',
-'close-hike.feature : égalité à l’échéance, retard et rejeu sans double audit; send-hike-reminder.feature : déclenchement aux 24 heures.'),
+'close-hike.feature : égalité à l’échéance et rejeu sans double audit; sign-up-for-hike.feature et cancel-sign-up.feature : refus après l’échéance même avant le passage de l’ordonnanceur; send-hike-reminder.feature : déclenchement aux 24 heures.'),
 ('B05','Participants statistiques et absence de présence',
 '« Le rapport présente des statistiques sur les randonnées de ce sentier pendant la période indiquée (nombre de randonnées, nombre de participants, nombre de randonnées annulées). » [R1, §3.2, p. 8]',
 'Le terme participants n’est pas défini; or « Ce qui se passe le jour de la randonnée n’est pas suivi par le système » [R1, §1.5, p. 3]. Les présences réelles et les personnes distinctes ne se déduisent pas du nombre d’inscriptions.',
@@ -863,26 +909,17 @@ table(['Cas','Interface et commande','Contrat .feature'],[[c[4],c[0]+'.'+c[1],c[
 para('Les onze DTO racines sont dans application.dtos.queries.Queries.kt; ProfileQuery, EmergencyContactQuery et WaiverAcceptanceQuery composent les requêtes. HikeSummary est une projection de sortie dans application.dtos. Le paquetage usecases contient neuf interfaces; UpdateHiker possède trois fonctions pour séparer les permissions.')
 h('Couverture des consignes')
 table(['Exigence de remise [R2]','Emplacement / preuve'],[
-['Couverture et contributions','Sections 1 et 2; professeur, identités et tâches des deux membres renseignés.'],
+['Couverture et contributions','Page couverture (équipe, produit, cours, livrable, date, professeur, membres) et section 2.'],
 ['Hypothèses, contexte, sous-domaines','Sections 3 à 6; 7 sous-paquetages domain avec README.'],
 ['12 analyses de cas d’utilisation','Section 7 : préconditions, étapes, variantes et postconditions.'],
 ['Commandes / DTO / contrats','9 interfaces, 11 fonctions, 11 DTO racines, 11 fonctionnalités.'],
 ['Exceptions au code','UC03, UC04 et UC12 décrits dans le rapport; aucune interface ni fonctionnalité correspondante.'],
 ['Bonus jusqu’à 5 éléments','Section 8 : 5 observations avec citation, résolution et effet.'],
-['Dépôt GitHub','Dossier backend prêt à intégrer; publication et URL du dépôt à fournir par l’équipe.']],[175,320])
-title('10. Références et préparation de la remise')
-h('10.1 Documents de référence')
+['Dépôt GitHub','https://github.com/elothkhalil/livrable1seg3502 : dossier backend (structure du domaine, commandes, DTO, contrats).']],[175,320])
+title('10. Références')
 para('[R1] Kalonji Kalala. Système de gestion des événements de randonnée du Cairn (CAR-HMS), document des exigences initiales, CAR-Req-01. SEG 3102, Université d’Ottawa, automne 2026. Fichier fourni : Exigences Initiales-CAR-HMS_exigences_initiales_FR1.pdf, 8 pages. Références pertinentes : contexte/portée p. 1-2; glossaire p. 2-3; exigences p. 3-4; diagramme p. 5-6; cas d’utilisation p. 7-8.')
 para('[R2] Boqi Chen. SEG 3102, Projet, Livrable 1 : domaine initial. Université d’Ottawa, automne 2026. Fichier fourni : SEG3102_Livrable1_FR1.pdf, 3 pages. Plan du rapport p. 1; structure de code et exceptions p. 2; critères du bonus p. 2-3.')
 para('Les liens vers la CCN présents dans R1 désignent de futures sources opérationnelles; aucune consultation du catalogue en direct ni validation d’un fournisseur météo n’est prétendue ici. Les règles de ce livrable sont tirées des deux PDF et des hypothèses explicites.')
-h('10.2 Points à confirmer avant dépôt')
-bullets(['Vérifier les informations de couverture et le tableau des contributions; aucun nom d’équipe distinct n’est utilisé, conformément au choix des membres.',
-'Valider les hypothèses avec le client/enseignant, en priorité l’admissibilité aux niveaux inférieurs, le calendrier saisonnier CCN, la revalidation des attentes et le sens de « participants ».',
-'Intégrer backend dans le dépôt GitHub de l’équipe et vérifier l’arborescence et les droits d’accès de l’évaluateur. Les consignes ne rendent pas explicitement obligatoire une branche appelée contracts : ce nom apparaît dans l’exemple.',
-'La compilation directe des fichiers Kotlin a réussi (compilateur 2.0.21, JDK 21, cible JVM 17). Le parseur Gherkin officiel accepte 11 fonctionnalités et 100 scénarios développés. L’exécution métier nécessitera les définitions de pas et une implémentation ultérieure.',
-'Relire le rapport, vérifier les champs administratifs, puis remettre selon la procédure et la date annoncées dans le cours. Les PDF fournis n’indiquent pas la date limite.'])
-h('10.3 Limite de validation')
-para('La grille détaillée de correction n’est pas fournie. Ce dossier vise l’ensemble des exigences explicites et le bonus, sans garantir une note. Les contrôles automatiques locaux portent sur la structure, la correspondance entre commandes/DTO/contrats, la compilation des signatures Kotlin, la syntaxe Gherkin et le rendu du PDF; ils ne prouvent pas l’implémentation du produit.')
 put(R/'rapport/Livrable1_CAR-HMS.md','\n'.join(md))
 def footer(c,doc):
  c.setStrokeColor(colors.HexColor('#b7cece'));c.line(50,43,545,43)
@@ -905,13 +942,13 @@ put(R/'README.md','''# CAR-HMS - Livrable 1
 - `VALIDATION.md` : contrôles effectués et limites.
 
 ## Informations de remise
-Professeur : Kalenji Kalala. Aucun nom d’équipe distinct. Les identités, numéros étudiants et contributions des deux membres sont intégrés au rapport. Valider les hypothèses avec le client/enseignant.
+Équipe : Équipe CAR-HMS. Professeur : Kalonji Kalala. Les identités, numéros étudiants et contributions des deux membres sont intégrés au rapport. Valider les hypothèses avec le client/enseignant.
 
 ## Vérification
 Depuis ce dossier : `python3 tools/verify.py`.
-Pour compiler le squelette si Gradle et JDK 17 sont installés : `cd backend` puis `gradle compileKotlin`. Les dépendances doivent pouvoir être téléchargées. Aucun wrapper Gradle n'est inclus; ne pas annoncer une compilation locale si elle n'a pas été exécutée.
+Pour compiler le projet Spring Boot si Gradle et JDK 17 sont installés : `cd backend` puis `gradle compileKotlin`. Les dépendances doivent pouvoir être téléchargées. Aucun wrapper Gradle n'est inclus.
 
-Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémentation métier n'est incluse. Les contrats ne sont pas des tests fonctionnels exécutables à ce stade. Le build Gradle sert seulement à compiler les signatures Kotlin.
+Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémentation métier n'est incluse. Les contrats ne sont pas des tests fonctionnels exécutables à ce stade.
 
 ## Dépôt
 Le code est publié sur la branche `main` du dépôt de l'équipe : https://github.com/elothkhalil/livrable1seg3502. Le dossier `backend` contient la structure et les contrats à évaluer; le dossier `rapport` contient le document. Aucun secret ni fichier personnel du workspace n'est inclus.

@@ -13,13 +13,13 @@
 - `VALIDATION.md` : contrôles effectués et limites.
 
 ## Informations de remise
-Professeur : Kalenji Kalala. Aucun nom d’équipe distinct. Les identités, numéros étudiants et contributions des deux membres sont intégrés au rapport. Valider les hypothèses avec le client/enseignant.
+Équipe : Équipe CAR-HMS. Professeur : Kalonji Kalala. Les identités, numéros étudiants et contributions des deux membres sont intégrés au rapport. Valider les hypothèses avec le client/enseignant.
 
 ## Vérification
 Depuis ce dossier : `python3 tools/verify.py`.
-Pour compiler le squelette si Gradle et JDK 17 sont installés : `cd backend` puis `gradle compileKotlin`. Les dépendances doivent pouvoir être téléchargées. Aucun wrapper Gradle n'est inclus; ne pas annoncer une compilation locale si elle n'a pas été exécutée.
+Pour compiler le projet Spring Boot si Gradle et JDK 17 sont installés : `cd backend` puis `gradle compileKotlin`. Les dépendances doivent pouvoir être téléchargées. Aucun wrapper Gradle n'est inclus.
 
-Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémentation métier n'est incluse. Les contrats ne sont pas des tests fonctionnels exécutables à ce stade. Le build Gradle sert seulement à compiler les signatures Kotlin.
+Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémentation métier n'est incluse. Les contrats ne sont pas des tests fonctionnels exécutables à ce stade.
 
 ## Dépôt
 Le code est publié sur la branche `main` du dépôt de l'équipe : https://github.com/elothkhalil/livrable1seg3502. Le dossier `backend` contient la structure et les contrats à évaluer; le dossier `rapport` contient le document. Aucun secret ni fichier personnel du workspace n'est inclus.

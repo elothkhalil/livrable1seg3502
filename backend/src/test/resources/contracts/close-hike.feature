@@ -16,11 +16,6 @@ Fonctionnalité: Contrat initial de closeHike
       | ouverte  |
       | complète |
 
-  Scénario: Retard d'ordonnanceur
-    Étant donné une randonnée ouverte dont l'échéance est passée et non encore traitée
-    Quand un membre tente une inscription ou une annulation personnelle
-    Alors l'opération est refusée même si le statut persistant n'a pas encore changé
-
   Scénario: Fermeture anticipée
     Étant donné une randonnée dont l'échéance est future
     Quand l'ordonnanceur appelle la fermeture
