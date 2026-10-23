@@ -10,4 +10,4 @@ Confirmer, notifier les promotions/annulations et envoyer les rappels.
 ## Concepts candidats
 Notification, clé de déduplication, état de livraison, prévision facultative.
 
-Ce livrable fixe la frontière du sous-domaine; il ne prétend pas fournir une implémentation. Voir le rapport pour les invariants et les dépendances.
+Voir le rapport (section 5) pour les invariants et les dépendances.
