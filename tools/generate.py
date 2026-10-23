@@ -680,13 +680,21 @@ Un rejet doit laisser l’état métier intact. Les notifications sont des inten
 Les interfaces Unit signalent une violation par une erreur applicative typée à définir à l’implémentation; aucun code HTTP n’est imposé par le modèle initial. Les commandes de fermeture et de rappel sont réservées à SYSTEM.
 ''')
 # Report: same content is delivered as PDF and editable Markdown.
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+# Embed genuine Times New Roman. Override CAR_HMS_FONT_DIR on other platforms.
+import os
+font_dir=Path(os.environ.get('CAR_HMS_FONT_DIR','/System/Library/Fonts/Supplemental'))
+for font,filename in [('TimesNewRoman','Times New Roman.ttf'),('TimesNewRoman-Bold','Times New Roman Bold.ttf'),('TimesNewRoman-Italic','Times New Roman Italic.ttf'),('TimesNewRoman-BoldItalic','Times New Roman Bold Italic.ttf')]:
+ pdfmetrics.registerFont(TTFont(font,str(font_dir/filename)))
+pdfmetrics.registerFontFamily('TimesNewRoman',normal='TimesNewRoman',bold='TimesNewRoman-Bold',italic='TimesNewRoman-Italic',boldItalic='TimesNewRoman-BoldItalic')
 styles=getSampleStyleSheet()
-styles.add(ParagraphStyle(name='TitleCAR',fontName='Helvetica-Bold',fontSize=25,leading=30,textColor=colors.HexColor('#163e43'),spaceAfter=18))
-styles.add(ParagraphStyle(name='H1CAR',fontName='Helvetica-Bold',fontSize=18,leading=23,textColor=colors.HexColor('#163e43'),spaceAfter=14))
-styles.add(ParagraphStyle(name='H2CAR',fontName='Helvetica-Bold',fontSize=11,leading=15,textColor=colors.HexColor('#176c72'),spaceBefore=10,spaceAfter=5))
-styles.add(ParagraphStyle(name='BodyCAR',fontName='Helvetica',fontSize=10,leading=14,spaceAfter=7))
-styles.add(ParagraphStyle(name='SmallCAR',fontName='Helvetica',fontSize=8.4,leading=11,spaceAfter=5))
-styles.add(ParagraphStyle(name='CoverSmall',fontName='Helvetica',fontSize=12,leading=18,spaceAfter=9))
+styles.add(ParagraphStyle(name='TitleCAR',fontName='TimesNewRoman-Bold',fontSize=25,leading=30,textColor=colors.HexColor('#163e43'),spaceAfter=18))
+styles.add(ParagraphStyle(name='H1CAR',fontName='TimesNewRoman-Bold',fontSize=18,leading=23,textColor=colors.HexColor('#163e43'),spaceAfter=14))
+styles.add(ParagraphStyle(name='H2CAR',fontName='TimesNewRoman-Bold',fontSize=11,leading=15,textColor=colors.HexColor('#176c72'),spaceBefore=10,spaceAfter=5))
+styles.add(ParagraphStyle(name='BodyCAR',fontName='TimesNewRoman',fontSize=10,leading=14,spaceAfter=7))
+styles.add(ParagraphStyle(name='SmallCAR',fontName='TimesNewRoman',fontSize=8.4,leading=11,spaceAfter=5))
+styles.add(ParagraphStyle(name='CoverSmall',fontName='TimesNewRoman',fontSize=12,leading=18,spaceAfter=9))
 story=[]; md=[]; headings=[]
 def P(t,style='BodyCAR'):
  return Paragraph(html.escape(t).replace('\n','<br/>'),styles[style])
@@ -738,7 +746,7 @@ para('La frontière représente l’application Web CAR-HMS et ses composants lo
 d=Drawing(495,278)
 def box(d,x,y,w,hh,text,fill='#edf5f4'):
  d.add(Rect(x,y,w,hh,rx=6,ry=6,fillColor=colors.HexColor(fill),strokeColor=colors.HexColor('#46767a')))
- for i,line in enumerate(text.split('\n')):d.add(String(x+w/2,y+hh/2+(len(text.split('\n'))-1)*6-i*12,line,fontName='Helvetica',fontSize=9,textAnchor='middle',fillColor=colors.HexColor('#163e43')))
+ for i,line in enumerate(text.split('\n')):d.add(String(x+w/2,y+hh/2+(len(text.split('\n'))-1)*6-i*12,line,fontName='TimesNewRoman',fontSize=9,textAnchor='middle',fillColor=colors.HexColor('#163e43')))
 def arrow(d,x1,y1,x2,y2):
  import math
  d.add(Line(x1,y1,x2,y2,strokeColor=colors.HexColor('#46767a'),strokeWidth=1))
@@ -878,7 +886,7 @@ para('La grille détaillée de correction n’est pas fournie. Ce dossier vise l
 put(R/'rapport/Livrable1_CAR-HMS.md','\n'.join(md))
 def footer(c,doc):
  c.setStrokeColor(colors.HexColor('#b7cece'));c.line(50,43,545,43)
- c.setFont('Helvetica',8);c.setFillColor(colors.HexColor('#536a6c'))
+ c.setFont('TimesNewRoman',8);c.setFillColor(colors.HexColor('#536a6c'))
  c.drawString(50,30,'CAR-HMS · SEG 3102 · Livrable 1 · 22 octobre 2026');c.drawRightString(545,30,str(doc.page))
 doc=SimpleDocTemplate(str(R/'rapport/Livrable1_CAR-HMS.pdf'),pagesize=(595.28,841.89),leftMargin=50,rightMargin=50,topMargin=48,bottomMargin=58,title='CAR-HMS - Livrable 1 : domaine initial',author='Mohamed Khalil EL OTHMANI et Mohamed Khalil Mehdaoui')
 doc.build(story,onFirstPage=footer,onLaterPages=footer)
@@ -909,7 +917,7 @@ Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémen
 Le code est publié sur la branche `main` du dépôt de l'équipe : https://github.com/elothkhalil/livrable1seg3502. Le dossier `backend` contient la structure et les contrats à évaluer; le dossier `rapport` contient le document. Aucun secret ni fichier personnel du workspace n'est inclus.
 
 ## Mise à jour du rapport
-Modifier `tools/generate.py`, puis exécuter `python3 tools/generate.py` avec ReportLab. Une modification du Markdown seul ne modifie pas automatiquement le PDF. Vérifier ensuite le PDF rendu. Les PDF sources restent dans Downloads et ne sont pas redistribués dans l'archive.
+Modifier `tools/generate.py`, puis exécuter `python3 tools/generate.py` avec ReportLab et les fichiers Times New Roman (définir `CAR_HMS_FONT_DIR` si nécessaire). Une modification du Markdown seul ne modifie pas automatiquement le PDF. Vérifier ensuite le PDF rendu. Les PDF sources restent dans Downloads et ne sont pas redistribués dans l'archive.
 ''')
 put(R/'manifest.json',json.dumps({'subdomains':[s[0] for s in subdomains],'commands':[{'interface':i,'method':m,'dto':q,'usecase':u,'contract':f} for i,m,q,ret,u,f in commands]},ensure_ascii=False,indent=2))
 print('Generated report and source at',R)
