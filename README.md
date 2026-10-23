@@ -25,4 +25,4 @@ Il s'agit de contrats initiaux : aucune définition de pas Cucumber ni implémen
 Le code est publié sur la branche `main` du dépôt de l'équipe : https://github.com/elothkhalil/livrable1seg3502. Le dossier `backend` contient la structure et les contrats à évaluer; le dossier `rapport` contient le document. Aucun secret ni fichier personnel du workspace n'est inclus.
 
 ## Mise à jour du rapport
-Modifier `tools/generate.py`, puis exécuter `python3 tools/generate.py` avec ReportLab. Une modification du Markdown seul ne modifie pas automatiquement le PDF. Vérifier ensuite le PDF rendu. Les PDF sources restent dans Downloads et ne sont pas redistribués dans l'archive.
+Modifier `tools/generate.py`, puis exécuter `python3 tools/generate.py` avec ReportLab et les fichiers Times New Roman (définir `CAR_HMS_FONT_DIR` si nécessaire). Une modification du Markdown seul ne modifie pas automatiquement le PDF. Vérifier ensuite le PDF rendu. Les PDF sources restent dans Downloads et ne sont pas redistribués dans l'archive.
