@@ -27,4 +27,4 @@ print('11 fonctionnalités valides, 100 scénarios développés')
 ## Limites et éléments restant à fournir
 Les fonctionnalités sont des contrats initiaux, sans définitions de pas ni implémentation métier; les scénarios ne sont donc pas déclarés réussis fonctionnellement. Les interfaces compilent mais n’implémentent pas les comportements.
 
-Le nom de l’équipe, le professeur et les contributions réelles doivent être complétés. Le dossier est intégré au dépôt GitHub de l’équipe : https://github.com/elothkhalil/livrable1seg3502. La note finale dépend de l’évaluateur et de la remise complète selon les règles du cours.
+Couverture et contributions mises à jour : aucun nom d’équipe distinct; professeur Kalenji Kalala; tâches individuelles et travail commun renseignés selon la répartition approuvée par les membres. Le dossier est intégré au dépôt GitHub de l’équipe : https://github.com/elothkhalil/livrable1seg3502. La note finale dépend de l’évaluateur et de la remise complète selon les règles du cours.

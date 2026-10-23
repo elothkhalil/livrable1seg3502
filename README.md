@@ -1,7 +1,7 @@
 # CAR-HMS - Livrable 1
 
 ## Contenu
-- `rapport/Livrable1_CAR-HMS.pdf` : rapport à relire et compléter avant remise.
+- `rapport/Livrable1_CAR-HMS.pdf` : rapport final à relire avant remise.
 - `rapport/Livrable1_CAR-HMS.md` : texte modifiable du même rapport.
 - `rapport/contexte.svg` : diagramme de contexte vectoriel.
 - `backend/src/main/kotlin/ca/cairn/carhms/domain/` : 7 sous-domaines documentés.
@@ -12,8 +12,8 @@
 - `tools/generate.py` : source de génération du dossier et du PDF (Python + ReportLab).
 - `VALIDATION.md` : contrôles effectués et limites.
 
-## Informations à compléter
-Équipe, professeur et contributions réelles de chaque membre. Les deux identités et numéros étudiants communiqués sont déjà intégrés. Aucun pourcentage fictif n'est attribué. Valider les hypothèses avec le client/enseignant.
+## Informations de remise
+Professeur : Kalenji Kalala. Aucun nom d’équipe distinct. Les identités, numéros étudiants et contributions des deux membres sont intégrés au rapport. Valider les hypothèses avec le client/enseignant.
 
 ## Vérification
 Depuis ce dossier : `python3 tools/verify.py`.
