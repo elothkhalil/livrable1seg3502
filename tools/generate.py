@@ -710,19 +710,19 @@ def table(headers,rows,widths):
 # cover
 story.append(Spacer(1,54));story.append(P('CAR-HMS','TitleCAR'));story.append(P('Livrable 1\nAnalyse initiale du domaine','TitleCAR'))
 md.append('# CAR-HMS - Livrable 1 : Analyse initiale du domaine\n')
-for t in ['Système de gestion des événements de randonnée du Club Cairn','SEG 3102 · Automne 2026','Date de préparation : 22 octobre 2026','Équipe : [nom à compléter]','Professeur : [nom à confirmer]']:
+for t in ['Système de gestion des événements de randonnée du Club Cairn','SEG 3102 · Automne 2026','Date de préparation : 22 octobre 2026','Professeur : Kalenji Kalala']:
  story.append(P(t,'CoverSmall'));md.append(t+'\n')
 story.append(Spacer(1,24))
 table(['Membre','Numéro étudiant'],[['Mohamed Khalil EL OTHMANI','300389979'],['Mohamed Khalil Mehdaoui','300371110']],[340,155])
-story.append(Spacer(1,25));para('Version de travail complète sur le plan technique. Le nom de l’équipe, le professeur et les contributions réelles doivent être confirmés avant remise. Les décisions d’analyse sont identifiées comme hypothèses, sans être attribuées au client.')
+story.append(Spacer(1,25));para('Analyse initiale du domaine et contrats applicatifs. Les décisions d’analyse sont identifiées comme hypothèses, sans être attribuées au client.')
 title('2. Sommaire exécutif et équipe')
 h('2.1 Sommaire exécutif')
 para('Ce document s’adresse au client Cairn, à l’équipe de développement et à l’évaluateur du cours; il fixe la portée, les hypothèses et le modèle initial du domaine CAR-HMS. Il décrit les interactions externes, justifie sept sous-domaines, détaille les douze cas d’utilisation et relie neuf interfaces Kotlin et onze contrats Cucumber aux règles métier, puis présente cinq observations de revue des exigences.')
 h('2.2 Description de l’équipe et des rôles')
 table(['Membre','Travail réellement effectué pour ce livrable'],[
-['Mohamed Khalil EL OTHMANI\n300389979','À confirmer par le membre : sections rédigées/revues, code et contrats auxquels il a participé. Heures et pourcentage : non communiqués.'],
-['Mohamed Khalil Mehdaoui\n300371110','À confirmer par le membre : sections rédigées/revues, code et contrats auxquels il a participé. Heures et pourcentage : non communiqués.']],[195,300])
-para('La répartition des tâches n’a pas été fournie; aucune contribution, durée ou justification de déséquilibre n’est inventée. Ce tableau doit décrire le travail réellement effectué, puisque les consignes permettent un ajustement individuel des notes.')
+['Mohamed Khalil EL OTHMANI\n300389979','Analyse des exigences, hypothèses et revue des contradictions; diagramme de contexte et classification des sous-domaines; rédaction et mise en forme du rapport.'],
+['Mohamed Khalil Mehdaoui\n300371110','Structure des paquetages du domaine; interfaces Kotlin et DTO; rédaction des contrats Cucumber et vérification de leur correspondance avec les commandes.']],[195,300])
+para('Travail commun aux deux membres : analyse des cas d’utilisation, vérification de la cohérence entre rapport et code et relecture finale. Aucun pourcentage ni nombre d’heures n’est indiqué; ces renseignements sont facultatifs dans les consignes.')
 h('2.3 Portée et pièces livrées')
 para('Inclus : consultation, compte sur invitation, profil et habilitation, planification, inscriptions/attente, notifications et statistiques. Exclus : recrutement, émission des invitations, processus complet d’adhésion, ressources humaines, activités physiques et suivi des présences. Les données CCN demeurent la référence externe.')
 para('Le dossier backend contient uniquement le squelette du domaine, les contrats d’application et les fonctionnalités Cucumber demandés. Le produit final utilisera Angular/TypeScript et Kotlin/Spring Boot; aucune interface Web ni implémentation Spring Boot n’est requise pour ce livrable initial [R1, §2.3; R2, §2].')
@@ -855,7 +855,7 @@ table(['Cas','Interface et commande','Contrat .feature'],[[c[4],c[0]+'.'+c[1],c[
 para('Les onze DTO racines sont dans application.dtos.queries.Queries.kt; ProfileQuery, EmergencyContactQuery et WaiverAcceptanceQuery composent les requêtes. HikeSummary est une projection de sortie dans application.dtos. Le paquetage usecases contient neuf interfaces; UpdateHiker possède trois fonctions pour séparer les permissions.')
 h('Couverture des consignes')
 table(['Exigence de remise [R2]','Emplacement / preuve'],[
-['Couverture et contributions','Sections 1 et 2; identités fournies; champs administratifs signalés.'],
+['Couverture et contributions','Sections 1 et 2; professeur, identités et tâches des deux membres renseignés.'],
 ['Hypothèses, contexte, sous-domaines','Sections 3 à 6; 7 sous-paquetages domain avec README.'],
 ['12 analyses de cas d’utilisation','Section 7 : préconditions, étapes, variantes et postconditions.'],
 ['Commandes / DTO / contrats','9 interfaces, 11 fonctions, 11 DTO racines, 11 fonctionnalités.'],
@@ -868,7 +868,7 @@ para('[R1] Kalonji Kalala. Système de gestion des événements de randonnée du
 para('[R2] Boqi Chen. SEG 3102, Projet, Livrable 1 : domaine initial. Université d’Ottawa, automne 2026. Fichier fourni : SEG3102_Livrable1_FR1.pdf, 3 pages. Plan du rapport p. 1; structure de code et exceptions p. 2; critères du bonus p. 2-3.')
 para('Les liens vers la CCN présents dans R1 désignent de futures sources opérationnelles; aucune consultation du catalogue en direct ni validation d’un fournisseur météo n’est prétendue ici. Les règles de ce livrable sont tirées des deux PDF et des hypothèses explicites.')
 h('10.2 Points à confirmer avant dépôt')
-bullets(['Renseigner le nom de l’équipe, le nom exact du professeur et la répartition réelle des contributions; conserver les noms et numéros étudiants vérifiés.',
+bullets(['Vérifier les informations de couverture et le tableau des contributions; aucun nom d’équipe distinct n’est utilisé, conformément au choix des membres.',
 'Valider les hypothèses avec le client/enseignant, en priorité l’admissibilité aux niveaux inférieurs, le calendrier saisonnier CCN, la revalidation des attentes et le sens de « participants ».',
 'Intégrer backend dans le dépôt GitHub de l’équipe et vérifier l’arborescence et les droits d’accès de l’évaluateur. Les consignes ne rendent pas explicitement obligatoire une branche appelée contracts : ce nom apparaît dans l’exemple.',
 'La compilation directe des fichiers Kotlin a réussi (compilateur 2.0.21, JDK 21, cible JVM 17). Le parseur Gherkin officiel accepte 11 fonctionnalités et 100 scénarios développés. L’exécution métier nécessitera les définitions de pas et une implémentation ultérieure.',
@@ -885,7 +885,7 @@ doc.build(story,onFirstPage=footer,onLaterPages=footer)
 put(R/'README.md','''# CAR-HMS - Livrable 1
 
 ## Contenu
-- `rapport/Livrable1_CAR-HMS.pdf` : rapport à relire et compléter avant remise.
+- `rapport/Livrable1_CAR-HMS.pdf` : rapport final à relire avant remise.
 - `rapport/Livrable1_CAR-HMS.md` : texte modifiable du même rapport.
 - `rapport/contexte.svg` : diagramme de contexte vectoriel.
 - `backend/src/main/kotlin/ca/cairn/carhms/domain/` : 7 sous-domaines documentés.
@@ -896,8 +896,8 @@ put(R/'README.md','''# CAR-HMS - Livrable 1
 - `tools/generate.py` : source de génération du dossier et du PDF (Python + ReportLab).
 - `VALIDATION.md` : contrôles effectués et limites.
 
-## Informations à compléter
-Équipe, professeur et contributions réelles de chaque membre. Les deux identités et numéros étudiants communiqués sont déjà intégrés. Aucun pourcentage fictif n'est attribué. Valider les hypothèses avec le client/enseignant.
+## Informations de remise
+Professeur : Kalenji Kalala. Aucun nom d’équipe distinct. Les identités, numéros étudiants et contributions des deux membres sont intégrés au rapport. Valider les hypothèses avec le client/enseignant.
 
 ## Vérification
 Depuis ce dossier : `python3 tools/verify.py`.
