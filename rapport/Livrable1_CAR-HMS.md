@@ -6,16 +6,14 @@ SEG 3102 · Automne 2026
 
 Date de préparation : 22 octobre 2026
 
-Équipe : [nom à compléter]
-
-Professeur : [nom à confirmer]
+Professeur : Kalenji Kalala
 
 | Membre | Numéro étudiant |
 | --- | --- |
 | Mohamed Khalil EL OTHMANI | 300389979 |
 | Mohamed Khalil Mehdaoui | 300371110 |
 
-Version de travail complète sur le plan technique. Le nom de l’équipe, le professeur et les contributions réelles doivent être confirmés avant remise. Les décisions d’analyse sont identifiées comme hypothèses, sans être attribuées au client.
+Analyse initiale du domaine et contrats applicatifs. Les décisions d’analyse sont identifiées comme hypothèses, sans être attribuées au client.
 
 
 # 2. Sommaire exécutif et équipe
@@ -30,10 +28,10 @@ Ce document s’adresse au client Cairn, à l’équipe de développement et à 
 
 | Membre | Travail réellement effectué pour ce livrable |
 | --- | --- |
-| Mohamed Khalil EL OTHMANI 300389979 | À confirmer par le membre : sections rédigées/revues, code et contrats auxquels il a participé. Heures et pourcentage : non communiqués. |
-| Mohamed Khalil Mehdaoui 300371110 | À confirmer par le membre : sections rédigées/revues, code et contrats auxquels il a participé. Heures et pourcentage : non communiqués. |
+| Mohamed Khalil EL OTHMANI 300389979 | Analyse des exigences, hypothèses et revue des contradictions; diagramme de contexte et classification des sous-domaines; rédaction et mise en forme du rapport. |
+| Mohamed Khalil Mehdaoui 300371110 | Structure des paquetages du domaine; interfaces Kotlin et DTO; rédaction des contrats Cucumber et vérification de leur correspondance avec les commandes. |
 
-La répartition des tâches n’a pas été fournie; aucune contribution, durée ou justification de déséquilibre n’est inventée. Ce tableau doit décrire le travail réellement effectué, puisque les consignes permettent un ajustement individuel des notes.
+Travail commun aux deux membres : analyse des cas d’utilisation, vérification de la cohérence entre rapport et code et relecture finale. Aucun pourcentage ni nombre d’heures n’est indiqué; ces renseignements sont facultatifs dans les consignes.
 
 
 ## 2.3 Portée et pièces livrées
@@ -857,7 +855,7 @@ Les onze DTO racines sont dans application.dtos.queries.Queries.kt; ProfileQuery
 
 | Exigence de remise [R2] | Emplacement / preuve |
 | --- | --- |
-| Couverture et contributions | Sections 1 et 2; identités fournies; champs administratifs signalés. |
+| Couverture et contributions | Sections 1 et 2; professeur, identités et tâches des deux membres renseignés. |
 | Hypothèses, contexte, sous-domaines | Sections 3 à 6; 7 sous-paquetages domain avec README. |
 | 12 analyses de cas d’utilisation | Section 7 : préconditions, étapes, variantes et postconditions. |
 | Commandes / DTO / contrats | 9 interfaces, 11 fonctions, 11 DTO racines, 11 fonctionnalités. |
@@ -880,7 +878,7 @@ Les liens vers la CCN présents dans R1 désignent de futures sources opération
 
 ## 10.2 Points à confirmer avant dépôt
 
-- Renseigner le nom de l’équipe, le nom exact du professeur et la répartition réelle des contributions; conserver les noms et numéros étudiants vérifiés.
+- Vérifier les informations de couverture et le tableau des contributions; aucun nom d’équipe distinct n’est utilisé, conformément au choix des membres.
 - Valider les hypothèses avec le client/enseignant, en priorité l’admissibilité aux niveaux inférieurs, le calendrier saisonnier CCN, la revalidation des attentes et le sens de « participants ».
 - Intégrer backend dans le dépôt GitHub de l’équipe et vérifier l’arborescence et les droits d’accès de l’évaluateur. Les consignes ne rendent pas explicitement obligatoire une branche appelée contracts : ce nom apparaît dans l’exemple.
 - La compilation directe des fichiers Kotlin a réussi (compilateur 2.0.21, JDK 21, cible JVM 17). Le parseur Gherkin officiel accepte 11 fonctionnalités et 100 scénarios développés. L’exécution métier nécessitera les définitions de pas et une implémentation ultérieure.
